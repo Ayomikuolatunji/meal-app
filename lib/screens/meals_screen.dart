@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:net_ninja_course/models/meal.dart';
+import 'package:net_ninja_course/widgets/mealItem_widget.dart';
 
 class MealsScreen extends StatelessWidget {
   final String title;
@@ -34,7 +35,9 @@ class MealsScreen extends StatelessWidget {
               ),
             )
           : ListView.builder(
-              itemBuilder: ((ctx, index) => Text(meals[index].title)),
+              itemBuilder: ((ctx, index) => MealItem(
+                    meal: meals[index],
+                  )),
               itemCount: meals.length,
             ),
     );
