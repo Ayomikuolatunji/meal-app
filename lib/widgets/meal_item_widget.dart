@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:net_ninja_course/models/meal.dart';
+import 'package:net_ninja_course/widgets/meal_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal});
+  const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   final Meal meal;
+  final void Function(BuildContext context, Meal meal) onSelectMeal;
+  String get complexityText {
+    return meal.complexity.name[0].toUpperCase() +
+        meal.complexity.name.substring(1);
+  }
+
+  String get affordAbilityText {
+    return meal.affordability.name[0].toUpperCase() +
+        meal.affordability.name.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +26,9 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onSelectMeal(context, meal);
+        },
         child: Stack(
           children: [
             FadeInImage.memoryNetwork(
@@ -48,7 +61,22 @@ class MealItem extends StatelessWidget {
                         height: 12,
                       ),
                       Row(
-                        children: [],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MealTrait(
+                              icon: Icons.schedule,
+                              label: '${meal.duration.toString()} min'),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          MealTrait(icon: Icons.work, label: complexityText),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          MealTrait(
+                              icon: Icons.attach_money,
+                              label: affordAbilityText)
+                        ],
                       )
                     ],
                   ),
@@ -59,3 +87,6 @@ class MealItem extends StatelessWidget {
     );
   }
 }
+
+
+

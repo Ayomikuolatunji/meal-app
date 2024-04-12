@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:net_ninja_course/screens/categories_screen.dart';
+import 'package:net_ninja_course/providers/favorites_management.dart';
+import 'package:net_ninja_course/screens/tab_screen.dart';
+import 'package:provider/provider.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -17,10 +19,14 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: theme,
-      home: const CategoriesScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => FavoriteMealsManagement(),
+      child: MaterialApp(
+        theme: theme,
+        home: const TabsScreen(),
+      ),
     );
   }
 }
