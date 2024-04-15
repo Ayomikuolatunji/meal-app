@@ -5,8 +5,9 @@ import 'package:net_ninja_course/widgets/meal_item_widget.dart';
 
 class MealsScreen extends StatelessWidget {
   final String title;
+  final bool shouldShowTitle;
   final List<Meal> meals;
-  const MealsScreen({super.key, required this.meals, required this.title});
+  const MealsScreen({super.key, required this.meals, required this.title, required this.shouldShowTitle}): ;
 
   void onSelectMeal(BuildContext context, Meal meal) {
     Navigator.push(context,

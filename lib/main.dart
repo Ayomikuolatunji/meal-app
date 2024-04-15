@@ -21,12 +21,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => FavoriteMealsManagement(),
-      child: MaterialApp(
-        theme: theme,
-        home: const TabsScreen(),
-      ),
-    );
+    return MultiProvider(
+        providers: [
+          Provider<FavoriteMealsManagement>(
+            create: (context) => FavoriteMealsManagement(),
+          )
+        ],
+        child: MaterialApp(
+          theme: theme,
+          home: const TabsScreen(),
+        ));
   }
 }

@@ -13,17 +13,30 @@ class MealDetailsScreen extends StatelessWidget {
     return Builder(builder: (BuildContext context) {
       return Consumer<FavoriteMealsManagement>(
           builder: (context, state, child) {
+        var findMeal = state.favoriteMeals.cast<Meal?>().firstWhere(
+            (book) => book?.title == meal.title,
+            orElse: () => null);
         return Scaffold(
           appBar: AppBar(
             title: Text(meal.title),
             centerTitle: false,
             actions: [
-              IconButton(
+              if (findMeal != null)
+                TextButton(
+                  child: const Text("Remove from favorite"),
+                  onPressed: () {
+                    Provider.of<FavoriteMealsManagement>(context, listen: false)
+                        .removeRemoveFavoriteMeal(meal);
+                  },
+                )
+              else
+                IconButton(
                   onPressed: () {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
                         .addRemoveFavoriteMeal(meal);
                   },
-                  icon: const Icon(Icons.star))
+                  icon: const Icon(Icons.star),
+                ),
             ],
           ),
           body: ListView(

@@ -7,11 +7,15 @@ class FavoriteMealsManagement extends ChangeNotifier {
   List<Meal> get favoriteMeals => _favoriteMeals;
 
   void addRemoveFavoriteMeal(Meal meal) {
+    _favoriteMeals.add(meal);
+
+    notifyListeners();
+  }
+
+  void removeRemoveFavoriteMeal(Meal meal) {
     final isExisting = _favoriteMeals.contains(meal);
     if (isExisting) {
       _favoriteMeals.remove(meal);
-    } else {
-      _favoriteMeals.add(meal);
     }
     notifyListeners();
   }
