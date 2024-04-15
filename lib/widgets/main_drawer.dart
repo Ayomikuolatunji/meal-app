@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+enum Identifier { meals, filters }
+
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  const MainDrawer({super.key, required this.onSelectScreen});
+
+  final void Function(Identifier identifier) onSelectScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,23 @@ class MainDrawer extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Theme.of(context).colorScheme.primary, fontSize: 24),
           ),
+          onTap: () {
+            onSelectScreen(Identifier.meals);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.settings,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+          title: Text(
+            "Filter",
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.primary, fontSize: 24),
+          ),
+          onTap: () {
+            onSelectScreen(Identifier.filters);
+          },
         )
       ],
     ));

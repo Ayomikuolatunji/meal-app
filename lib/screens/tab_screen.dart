@@ -23,13 +23,22 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _onSetScreen(Identifier identifier) {
+    if (identifier == Identifier.filters) {
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(activatePageTitle),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _onSetScreen,
+      ),
       body: _selectedPageIndex == 0
           ? const CategoriesScreen()
           : const FavoritesScreen(),
