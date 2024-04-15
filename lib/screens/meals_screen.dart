@@ -7,7 +7,11 @@ class MealsScreen extends StatelessWidget {
   final String title;
   final bool shouldShowTitle;
   final List<Meal> meals;
-  const MealsScreen({super.key, required this.meals, required this.title, required this.shouldShowTitle}): ;
+  const MealsScreen(
+      {super.key,
+      required this.meals,
+      required this.title,
+      required this.shouldShowTitle});
 
   void onSelectMeal(BuildContext context, Meal meal) {
     Navigator.push(context,
@@ -17,12 +21,15 @@ class MealsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
-          textAlign: TextAlign.left,
-        ),
-      ),
+      appBar: shouldShowTitle
+          ? AppBar(
+              centerTitle: false,
+              title: Text(
+                title,
+                textAlign: TextAlign.left,
+              ),
+            )
+          : null,
       body: meals.isEmpty
           ? Center(
               child: Column(

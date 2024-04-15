@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:net_ninja_course/screens/categories_screen.dart';
 import 'package:net_ninja_course/screens/favorites_screen.dart';
+import 'package:net_ninja_course/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -28,6 +29,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activatePageTitle),
       ),
+      drawer: const MainDrawer(),
       body: _selectedPageIndex == 0
           ? const CategoriesScreen()
           : const FavoritesScreen(),

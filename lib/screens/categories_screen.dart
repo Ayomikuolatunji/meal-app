@@ -12,6 +12,7 @@ class CategoriesScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (ctx) => MealsScreen(
+                  shouldShowTitle: true,
                   title: category.title,
                   meals: dummyMeals
                       .where((meal) => meal.categories.contains(category.id))

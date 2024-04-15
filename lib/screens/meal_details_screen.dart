@@ -26,14 +26,14 @@ class MealDetailsScreen extends StatelessWidget {
                   child: const Text("Remove from favorite"),
                   onPressed: () {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
-                        .removeRemoveFavoriteMeal(meal);
+                        .removeRemoveFavoriteMeal(meal, context);
                   },
                 )
               else
                 IconButton(
                   onPressed: () {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
-                        .addRemoveFavoriteMeal(meal);
+                        .addRemoveFavoriteMeal(meal, context);
                   },
                   icon: const Icon(Icons.star),
                 ),

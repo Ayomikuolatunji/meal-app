@@ -11,7 +11,8 @@ class FavoritesScreen extends StatelessWidget {
     return Consumer<FavoriteMealsManagement>(
       builder: (context, favoriteMeals, child) {
         return MealsScreen(
-          title: "Favorite",
+          title: "Your Favorite",
+          shouldShowTitle: false,
           meals: favoriteMeals.favoriteMeals,
         );
       },
