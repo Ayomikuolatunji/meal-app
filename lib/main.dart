@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:net_ninja_course/providers/favorites_management.dart';
+import 'package:net_ninja_course/providers/filter_management.dart';
 import 'package:net_ninja_course/screens/tab_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,10 @@ class App extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<FavoriteMealsManagement>(
-            create: (context) => FavoriteMealsManagement(),
-          )
+            create: (ctx) => FavoriteMealsManagement(),
+          ),
+          ChangeNotifierProvider<FilterManagement>(
+              create: (ctx) => FilterManagement())
         ],
         child: MaterialApp(
           theme: theme,
