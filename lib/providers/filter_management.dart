@@ -3,9 +3,9 @@ import 'package:net_ninja_course/models/filter.dart';
 
 class FilterManagement extends ChangeNotifier {
   bool isGlutenFreeSet = true;
-  bool isLactoseFreeSet = false;
-  bool isVegetarianFreeSet = false;
-  bool isVegan = false;
+  bool isLactoseFreeSet = true;
+  bool isVegetarianFreeSet = true;
+  bool isVegan = true;
 
   List<FilterModel> filters = [
     FilterModel(

@@ -4,6 +4,7 @@ import 'package:net_ninja_course/screens/favorites_screen.dart';
 import 'package:net_ninja_course/widgets/main_drawer.dart';
 import "package:net_ninja_course/screens/filters_screen.dart";
 
+
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
   @override
@@ -25,13 +26,12 @@ class _TabsScreenState extends State<TabsScreen> {
   }
 
   void _onSetScreen(Identifier identifier) {
+    Navigator.pop(context);
     if (identifier == Identifier.filters) {
-        Navigator.pop(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (ctx) => const FilterScreens()));
-    } else {
-      Navigator.pop(context);
     }
+
   }
 
   @override

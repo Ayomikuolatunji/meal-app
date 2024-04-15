@@ -7,6 +7,7 @@ class MealsScreen extends StatelessWidget {
   final String title;
   final bool shouldShowTitle;
   final List<Meal> meals;
+
   const MealsScreen(
       {super.key,
       required this.meals,
