@@ -6,8 +6,22 @@ import 'package:net_ninja_course/screens/meals_screen.dart';
 import "package:net_ninja_course/models/category.dart";
 import 'package:net_ninja_course/widgets/category_widget.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
+
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> with SingleTickerProviderStateMixin {
+
+  late AnimationController _animationControleller;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationControleller=AnimationController(vsync: this);
+  }
 
   void _selectCategory(BuildContext context, Category category) {
     FilterManagement filterManagement =
