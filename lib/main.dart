@@ -26,6 +26,7 @@ class App extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<FavoriteMealsManagement>(
             create: (ctx) => FavoriteMealsManagement(),
+            
           ),
           ChangeNotifierProvider<FilterManagement>(
               create: (ctx) => FilterManagement())

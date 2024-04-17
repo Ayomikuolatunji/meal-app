@@ -22,8 +22,8 @@ class MealDetailsScreen extends StatelessWidget {
             centerTitle: false,
             actions: [
               if (findMeal != null)
-                TextButton(
-                  child: const Text("Remove from favorite"),
+                IconButton(
+                  icon:  const Icon(Icons.star),
                   onPressed: () {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
                         .removeRemoveFavoriteMeal(meal, context);
@@ -35,7 +35,7 @@ class MealDetailsScreen extends StatelessWidget {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
                         .addRemoveFavoriteMeal(meal, context);
                   },
-                  icon: const Icon(Icons.star),
+                  icon: const Icon(Icons.star_border),
                 ),
             ],
           ),
