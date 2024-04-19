@@ -31,12 +31,14 @@ class MealItem extends StatelessWidget {
         },
         child: Stack(
           children: [
-            FadeInImage.memoryNetwork(
-                fit: BoxFit.cover,
-                height: 200,
-                width: double.infinity,
-                placeholder: kTransparentImage,
-                image: meal.imageUrl),
+            Hero(
+                tag: meal.id,
+                child: FadeInImage.memoryNetwork(
+                    fit: BoxFit.cover,
+                    height: 200,
+                    width: double.infinity,
+                    placeholder: kTransparentImage,
+                    image: meal.imageUrl)),
             Positioned(
                 bottom: 0,
                 right: 0,
@@ -87,6 +89,3 @@ class MealItem extends StatelessWidget {
     );
   }
 }
-
-
-

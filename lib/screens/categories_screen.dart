@@ -25,6 +25,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
         duration: const Duration(microseconds: 3000),
         lowerBound: 0,
         upperBound: 1);
+
+    _animationController.forward();
   }
 
   @override
@@ -62,21 +64,25 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animationController,
-        child:  const Text(""),
-        builder: (context, child) => GridView(
-              padding: const EdgeInsets.all(24),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              children: [
-                for (final category in availableCategories)
-                  CategoryGridItem(
-                    category: category,
-                    selectCategory: _selectCategory,
-                  )
-              ],
+        child: GridView(
+          padding: const EdgeInsets.all(24),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20),
+          children: [
+            for (final category in availableCategories)
+              CategoryGridItem(
+                category: category,
+                selectCategory: _selectCategory,
+              )
+          ],
+        ),
+        builder: (context, child) => SlideTransition(
+              position: _animationController.drive(
+                  Tween(begin: const Offset(0, 0.3), end: const Offset(0, 0))),
+              child: child,
             ));
   }
 }

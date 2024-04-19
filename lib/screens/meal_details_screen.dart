@@ -23,7 +23,19 @@ class MealDetailsScreen extends StatelessWidget {
             actions: [
               if (findMeal != null)
                 IconButton(
-                  icon:  const Icon(Icons.star),
+                  icon: AnimatedSwitcher(
+                    duration: const Duration(microseconds: 3000),
+                    transitionBuilder: (child, animation) {
+                      return RotationTransition(
+                        turns: animation,
+                        child: child,
+                      );
+                    },
+                    child: Icon(
+                      Icons.star,
+                      key: ValueKey(findMeal.id),
+                    ),
+                  ),
                   onPressed: () {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
                         .removeRemoveFavoriteMeal(meal, context);
@@ -35,7 +47,19 @@ class MealDetailsScreen extends StatelessWidget {
                     Provider.of<FavoriteMealsManagement>(context, listen: false)
                         .addRemoveFavoriteMeal(meal, context);
                   },
-                  icon: const Icon(Icons.star_border),
+                  icon: AnimatedSwitcher(
+                    duration: const Duration(microseconds: 3000),
+                    transitionBuilder: (child, animation) {
+                      return RotationTransition(
+                        turns: animation,
+                        child: child,
+                      );
+                    },
+                    child: Icon(
+                      Icons.star_border,
+                      key: ValueKey(findMeal?.id),
+                    ),
+                  ),
                 ),
             ],
           ),
