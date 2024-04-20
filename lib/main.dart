@@ -1,39 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:net_ninja_course/providers/favorites_management.dart';
-import 'package:net_ninja_course/providers/filter_management.dart';
-import 'package:net_ninja_course/screens/tab_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:net_ninja_course/groceries.dart';
 
-final theme = ThemeData(
-  useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 131, 57, 0),
-  ),
-  textTheme: GoogleFonts.latoTextTheme(),
-);
 void main() {
-  runApp(const App());
+  runApp(const MyApp());
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<FavoriteMealsManagement>(
-            create: (ctx) => FavoriteMealsManagement(),
-            
-          ),
-          ChangeNotifierProvider<FilterManagement>(
-              create: (ctx) => FilterManagement())
-        ],
-        child: MaterialApp(
-          theme: theme,
-          home: const TabsScreen(),
-        ));
+    return MaterialApp(
+      title: 'Flutter Groceries',
+      theme: ThemeData.dark().copyWith(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 147, 229, 250),
+          brightness: Brightness.dark,
+          surface: const Color.fromARGB(255, 42, 51, 59),
+        ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 50, 58, 60),
+      ),
+      home: const Groceries(),
+    );
   }
 }
