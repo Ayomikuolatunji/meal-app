@@ -22,13 +22,11 @@ class _NewGroceryState extends State<NewGrocery> {
     logger.d("Logger is working!");
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.of(context).pop({
-        GroceryItem(
-            name: _enteredName!,
-            quantity: int.tryParse(_enteredQuantity!)!,
-            id: DateTime.now().toString(),
-            category: selectedCategory!)
-      });
+      Navigator.of(context).pop(GroceryItem(
+          name: _enteredName!,
+          quantity: int.tryParse(_enteredQuantity!)!,
+          id: DateTime.now().toString(),
+          category: selectedCategory!));
     }
   }
 
