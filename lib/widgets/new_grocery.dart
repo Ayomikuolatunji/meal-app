@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 import 'package:net_ninja_course/data/categories.dart';
@@ -18,15 +20,29 @@ class _NewGroceryState extends State<NewGrocery> {
   String? _enteredName = "";
   Category? selectedCategory;
   String? _enteredQuantity = "";
-  void saveItem() {
+  Future saveItem() async {
     logger.d("Logger is working!");
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.of(context).pop(GroceryItem(
-          name: _enteredName!,
-          quantity: int.tryParse(_enteredQuantity!)!,
-          id: DateTime.now().toString(),
-          category: selectedCategory!));
+      final url = Uri.https("cic-website-f201d-default-rtdb.firebaseio.com",
+          "shopping-lists.json");
+      final res = await http.post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode({
+            "name": _enteredName!,
+            "quantity": int.tryParse(_enteredQuantity!)!,
+            "category": selectedCategory?.title
+          }));
+      if (!context.mounted) {
+        return;
+      } else {
+        Navigator.of(context).pop(GroceryItem(
+            name: _enteredName!,
+            quantity: int.tryParse(_enteredQuantity!)!,
+            id: DateTime.now().toString(),
+            category: selectedCategory!));
+      }
+      logger.d(res.body);
     }
   }
 

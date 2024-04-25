@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:net_ninja_course/groceries.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           surface: const Color.fromARGB(255, 42, 51, 59),
         ),
-        scaffoldBackgroundColor: Color.fromARGB(255, 238, 242, 244),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 1, 9, 13),
       ),
       home: const Groceries(),
     );
