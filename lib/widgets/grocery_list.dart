@@ -18,30 +18,36 @@ class _GroceryListState extends State<GroceryList> {
   bool _isLoading = true;
 
   void loadGroceryItems() async {
-    final url = Uri.https(
-        "cic-website-f201d-default-rtdb.firebaseio.com", "shopping-lists.json");
-    final response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
-    final Map<String, dynamic> responseData = json.decode(response.body);
-    logger.d(responseData);
-    final List<GroceryItem> fetchedData = [];
-    for (final grocery in responseData.entries) {
-      final Category category = categories.entries
-          .firstWhere(
-              (category) => category.value.title == grocery.value["category"])
-          .value;
-      fetchedData.add(GroceryItem(
-          id: grocery.key,
-          name: grocery.value["name"],
-          quantity: grocery.value["quantity"],
-          category: category));
+    try {
+      final url = Uri.https("urlTUse",
+          "shopping-lists.json");
+      final response = await http.get(
+        url,
+        headers: {"Content-Type": "application/json"},
+      );
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final List<GroceryItem> fetchedData = [];
+      for (final grocery in responseData.entries) {
+        final Category category = categories.entries
+            .firstWhere(
+                (category) => category.value.title == grocery.value["category"])
+            .value;
+        fetchedData.add(GroceryItem(
+            id: grocery.key,
+            name: grocery.value["name"],
+            quantity: grocery.value["quantity"],
+            category: category));
+      }
+      setState(() {
+        _groceryItems = fetchedData;
+        _isLoading = false;
+      });
+    } catch (error) {
+      logger.d(error);
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _groceryItems = fetchedData;
-      _isLoading = false;
-    });
   }
 
   @override
@@ -56,10 +62,22 @@ class _GroceryListState extends State<GroceryList> {
     loadGroceryItems();
   }
 
-  void onDismissed(GroceryItem item) {
+  void onDismissed(GroceryItem item) async {
     setState(() {
       _groceryItems.remove(item);
     });
+    final index = _groceryItems.indexOf(item);
+    final url = Uri.https("urlTUse",
+        "shopping-lists/${item.id}.json");
+    final response = await http.delete(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+    if (response.statusCode >= 400) {
+      setState(() {
+        _groceryItems.insert(index, item);
+      });
+    }
   }
 
   @override

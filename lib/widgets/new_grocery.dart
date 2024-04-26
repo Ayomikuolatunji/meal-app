@@ -28,7 +28,7 @@ class _NewGroceryState extends State<NewGrocery> {
         _isSending = true;
       });
       _formKey.currentState!.save();
-      final url = Uri.https("cic-website-f201d-default-rtdb.firebaseio.com",
+      final url = Uri.https("urlTUse",
           "shopping-lists.json");
       final res = await http.post(url,
           headers: {"Content-Type": "application/json"},
@@ -140,7 +140,7 @@ class _NewGroceryState extends State<NewGrocery> {
                       onPressed: () {
                         _formKey.currentState!.reset();
                         setState(() {
-                           _isSending = false;
+                          _isSending = false;
                         });
                       },
                       child: const Text("Reset")),
