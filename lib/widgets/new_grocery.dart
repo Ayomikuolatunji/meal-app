@@ -24,7 +24,9 @@ class _NewGroceryState extends State<NewGrocery> {
   Future saveItem() async {
     logger.d("Logger is working!");
     if (_formKey.currentState!.validate()) {
-      _isSending = true;
+      setState(() {
+        _isSending = true;
+      });
       _formKey.currentState!.save();
       final url = Uri.https("cic-website-f201d-default-rtdb.firebaseio.com",
           "shopping-lists.json");
@@ -44,7 +46,9 @@ class _NewGroceryState extends State<NewGrocery> {
               quantity: int.tryParse(_enteredQuantity!)!,
               id: DateTime.now().toString(),
               category: selectedCategory!));
-          _isSending = false;
+          setState(() {
+            _isSending = false;
+          });
         }
       }
     }
@@ -135,6 +139,9 @@ class _NewGroceryState extends State<NewGrocery> {
                   TextButton(
                       onPressed: () {
                         _formKey.currentState!.reset();
+                        setState(() {
+                           _isSending = false;
+                        });
                       },
                       child: const Text("Reset")),
                   const SizedBox(
@@ -142,7 +149,7 @@ class _NewGroceryState extends State<NewGrocery> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        _isSending ? () {} : saveItem();
+                        _isSending ? null : saveItem();
                       },
                       child: Text(_isSending == true ? "Sending..." : "Submit"))
                 ],
