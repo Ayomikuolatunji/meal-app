@@ -20,9 +20,11 @@ class _NewGroceryState extends State<NewGrocery> {
   String? _enteredName = "";
   Category? selectedCategory;
   String? _enteredQuantity = "";
+  bool _isSending = false;
   Future saveItem() async {
     logger.d("Logger is working!");
     if (_formKey.currentState!.validate()) {
+      _isSending = true;
       _formKey.currentState!.save();
       final url = Uri.https("cic-website-f201d-default-rtdb.firebaseio.com",
           "shopping-lists.json");
@@ -36,13 +38,15 @@ class _NewGroceryState extends State<NewGrocery> {
       if (!context.mounted) {
         return;
       } else {
-        Navigator.of(context).pop(GroceryItem(
-            name: _enteredName!,
-            quantity: int.tryParse(_enteredQuantity!)!,
-            id: DateTime.now().toString(),
-            category: selectedCategory!));
+        if (res.statusCode == 200) {
+          Navigator.of(context).pop(GroceryItem(
+              name: _enteredName!,
+              quantity: int.tryParse(_enteredQuantity!)!,
+              id: DateTime.now().toString(),
+              category: selectedCategory!));
+          _isSending = false;
+        }
       }
-      logger.d(res.body);
     }
   }
 
@@ -138,9 +142,9 @@ class _NewGroceryState extends State<NewGrocery> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        saveItem();
+                        _isSending ? () {} : saveItem();
                       },
-                      child: const Text("Submit"))
+                      child: Text(_isSending == true ? "Sending..." : "Submit"))
                 ],
               )
             ],

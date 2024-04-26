@@ -15,6 +15,7 @@ class GroceryList extends StatefulWidget {
 
 class _GroceryListState extends State<GroceryList> {
   List<GroceryItem> _groceryItems = [];
+  bool _isLoading = true;
 
   void loadGroceryItems() async {
     final url = Uri.https(
@@ -39,6 +40,7 @@ class _GroceryListState extends State<GroceryList> {
     }
     setState(() {
       _groceryItems = fetchedData;
+      _isLoading = false;
     });
   }
 
@@ -74,38 +76,43 @@ class _GroceryListState extends State<GroceryList> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: _groceryItems.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                      "Your List is empty, click plus icon to add new item"),
-                  IconButton(
-                      onPressed: () {
-                        _addItem(context);
-                      },
-                      icon: const Icon(Icons.add)),
-                ],
-              ),
+      body: _isLoading
+          ? const Center(
+              child: Text("Page Loading..."),
             )
-          : ListView.builder(
-              itemCount: _groceryItems.length,
-              itemBuilder: ((ctx, index) => Dismissible(
-                    key: ValueKey(_groceryItems[index].id),
-                    onDismissed: (value) {
-                      onDismissed(_groceryItems[index]);
-                    },
-                    child: ListTile(
-                      title: Text(_groceryItems[index].name),
-                      leading: Container(
-                        height: 24,
-                        width: 24,
-                        color: _groceryItems[index].category.color,
-                      ),
-                      trailing: Text(_groceryItems[index].quantity.toString()),
-                    ),
-                  ))),
+          : _groceryItems.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                          "Your List is empty, click plus icon to add new item"),
+                      IconButton(
+                          onPressed: () {
+                            _addItem(context);
+                          },
+                          icon: const Icon(Icons.add)),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: _groceryItems.length,
+                  itemBuilder: ((ctx, index) => Dismissible(
+                        key: ValueKey(_groceryItems[index].id),
+                        onDismissed: (value) {
+                          onDismissed(_groceryItems[index]);
+                        },
+                        child: ListTile(
+                          title: Text(_groceryItems[index].name),
+                          leading: Container(
+                            height: 24,
+                            width: 24,
+                            color: _groceryItems[index].category.color,
+                          ),
+                          trailing:
+                              Text(_groceryItems[index].quantity.toString()),
+                        ),
+                      ))),
     );
   }
 }
